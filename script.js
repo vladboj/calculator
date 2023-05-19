@@ -19,20 +19,27 @@ function divide(a, b) {
 function operate(firstNum, operator, secondNum) {
   switch (operator) {
     case "+":
-      add(firstNum, secondNum);
-      break;
+      return add(firstNum, secondNum);
     case "-":
-      subtract(firstNum, secondNum);
-      break;
+      return subtract(firstNum, secondNum);
     case "*":
-      multiply(firstNum, secondNum);
-      break;
+      return multiply(firstNum, secondNum);
     case "/":
-      divide(firstNum, secondNum);
-      break;
+      return divide(firstNum, secondNum);
     default:
       console.log("ERROR! Operator invalid\n");
   }
 }
 
 let firstNum, operator, secondNum;
+
+// POPULATE DISPLAY WHEN YOU CLICK THE NUMBER BUTTONS
+const digitButtons = document.querySelectorAll(".digit");
+const displayText = document.querySelector(".display > p");
+
+digitButtons.forEach((digitButton) => {
+  digitButton.addEventListener("click", () => {
+    const digit = digitButton.textContent;
+    displayText.textContent += digit;
+  });
+});
