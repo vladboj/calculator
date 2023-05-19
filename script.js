@@ -27,11 +27,9 @@ function operate(firstNum, operator, secondNum) {
     case "/":
       return divide(firstNum, secondNum);
     default:
-      console.log("ERROR! Operator invalid\n");
+      console.log("ERROR! Invalid operator\n");
   }
 }
-
-let firstNum, operator, secondNum;
 
 // POPULATE DISPLAY WHEN YOU CLICK THE NUMBER BUTTONS
 const digitButtons = document.querySelectorAll(".digit");
@@ -42,4 +40,27 @@ digitButtons.forEach((digitButton) => {
     const digit = digitButton.textContent;
     displayText.textContent += digit;
   });
+});
+
+// ADD EVENT LISTENER TO THE OPERATORS
+const operatorButtons = document.querySelectorAll(".operator");
+let firstNum, operator, secondNum;
+
+operatorButtons.forEach((operatorButton) => {
+  operatorButton.addEventListener("click", () => {
+    firstNum = parseInt(displayText.textContent);
+    operator = operatorButton.textContent;
+    displayText.textContent += ` ${operator} `;
+  });
+});
+
+// ADD EVENT LISTENER TO EQUAL AND FINISH OPERATION
+const equal = document.querySelector(".equal");
+
+equal.addEventListener("click", () => {
+  secondNum = parseInt(
+    displayText.textContent.slice(displayText.textContent.indexOf(operator) + 2)
+  );
+  const result = operate(firstNum, operator, secondNum);
+  displayText.textContent += ` = ${result}`;
 });
