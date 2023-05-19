@@ -42,15 +42,31 @@ digitButtons.forEach((digitButton) => {
   });
 });
 
-// ADD EVENT LISTENER TO THE OPERATORS
+// ADD EVENT LISTENER TO THE OPERATORS AND COMPUTE THE RESULT OF EACH OPERATION
 const operatorButtons = document.querySelectorAll(".operator");
-let firstNum, operator, secondNum;
+let firstNum = 0,
+  secondNum,
+  operator,
+  lastOperator;
 
 operatorButtons.forEach((operatorButton) => {
   operatorButton.addEventListener("click", () => {
-    firstNum = parseInt(displayText.textContent);
     operator = operatorButton.textContent;
+
+    if (firstNum === 0) firstNum = parseInt(displayText.textContent);
+    else
+      firstNum = operate(
+        firstNum,
+        lastOperator,
+        parseInt(
+          displayText.textContent.slice(
+            displayText.textContent.lastIndexOf(lastOperator) + 2
+          )
+        )
+      );
     displayText.textContent += ` ${operator} `;
+
+    lastOperator = operator;
   });
 });
 
@@ -59,7 +75,9 @@ const equal = document.querySelector(".equal");
 
 equal.addEventListener("click", () => {
   secondNum = parseInt(
-    displayText.textContent.slice(displayText.textContent.indexOf(operator) + 2)
+    displayText.textContent.slice(
+      displayText.textContent.lastIndexOf(operator) + 2
+    )
   );
   const result = operate(firstNum, operator, secondNum);
   displayText.textContent += ` = ${result}`;
