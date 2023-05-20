@@ -92,3 +92,14 @@ equal.addEventListener("click", () => {
   const result = operate(firstNum, operator, secondNum);
   displayText.textContent += ` = ${result}`;
 });
+
+// ADD FUNCTIONALITY FOR "CLEAR" BUTTON
+const clearBtn = document.querySelector(".clear");
+
+clearBtn.addEventListener("click", () => {
+  displayText.textContent = "";
+  firstNum = 0;
+  secondNum = 0;
+  operator = "";
+  lastOperator = "";
+});
