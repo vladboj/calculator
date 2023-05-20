@@ -74,6 +74,16 @@ operatorButtons.forEach((operatorButton) => {
 const equal = document.querySelector(".equal");
 
 equal.addEventListener("click", () => {
+  const displayTextArray = displayText.textContent.split(" ");
+  let lastString = displayTextArray[displayTextArray.length - 1];
+  if (lastString === "") lastString = lastOperator;
+  const operators = ["+", "-", "*", "/"];
+
+  if (operators.includes(lastString) || displayTextArray.length === 1) {
+    alert("You entered an invalid operation!");
+    return;
+  }
+
   secondNum = parseInt(
     displayText.textContent.slice(
       displayText.textContent.lastIndexOf(operator) + 2
